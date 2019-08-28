@@ -1,8 +1,9 @@
 <div>
   <button class="btn btn-outline-primary" (click)="novo(template)">
-    Novo
+    Novo Registro
   </button>
 </div>
+<br />
 
 <table class="table table-striped">
   <thead class="thead-dark">
@@ -27,7 +28,7 @@
           <button class="btn btn-success" tooltip="Editar" (click)="editar(item, template)">
             <i class="fa fa-edit"></i>
           </button>
-          <button class="btn btn-danger" tooltip="Excluir">
+          <button class="btn btn-danger" tooltip="Excluir" (click)="delete(item)">
             <i class="fa fa-eraser"></i>
           </button>
         </div>
@@ -48,13 +49,13 @@
           <input type="text" class="form-control" formControlName="id" [hidden]="true">
         <div class="form-row">
           <div class="for-goup col-md-6">
-            <label>policyId</label>
-            <input type="text" class="form-control" formControlName="policyId"
+            <label>policyId {{this.policy.policyId}}</label>
+            <input type="number" class="form-control" formControlName="policyId" value="this.policy.policyId"
             [ngClass]="{'is-invalid': registerForm.get('policyId').errors &&  registerForm.get('policyId').touched}">
           </div>
           <div class="for-goup col-md-6">
             <label>document</label>
-            <input type="text" class="form-control" formControlName="document"
+            <input type="text" class="form-control" formControlName="document" minlength="11" maxlength="14" value="this.policy.document"
             [ngClass]="{'is-invalid': registerForm.get('document').errors &&  registerForm.get('document').touched}">
           </div>
         </div>

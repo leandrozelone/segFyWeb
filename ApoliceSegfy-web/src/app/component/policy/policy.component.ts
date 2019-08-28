@@ -28,10 +28,9 @@ export class PolicyComponent implements OnInit {
     this.service.getPolicys().subscribe(
       response => {
         this.policys = response;
-        console.log(response);
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -54,24 +53,54 @@ export class PolicyComponent implements OnInit {
   SalvarAlteracoes(template: any) {
     if (this.registerForm.valid) {
       this.policy = Object.assign({}, this.registerForm.value);
-      this.service.postPolicy(this.policy).subscribe(
-        (newPolicy: Policy) => {
-          console.log(newPolicy);
-          this.getPolicys();
-        },
-        error => {
-          console.log(error);
-        }
-      );
+
+      if (!this.policy.id) {
+        this.policy.id = 0;
+        this.service.postPolicy(this.policy).subscribe(
+          (newPolicy: Policy) => {
+            this.policy = null;
+            this.getPolicys();
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      } else {
+        this.service.putPolicy(this.policy).subscribe(
+          (newPolicy: Policy) => {
+            this.policy = null;
+            console.log(newPolicy);
+            this.getPolicys();
+          },
+          error => {
+            template.hide();
+            console.error(error);
+          }
+        );
+      }
     }
   }
 
-  editar(policy: Policy, template: any) {
+  editar(policyObj: Policy, template: any) {
     this.openModal(template);
+    this.policy = Object.assign({}, policyObj);
+    this.registerForm.patchValue(this.policy);
   }
 
   novo(template: any) {
     this.openModal(template);
+  }
+
+  delete(policy: Policy) {
+    this.service.deletePolicy(policy).subscribe(
+      (newPolicy: Policy) => {
+        console.log(newPolicy);
+        this.getPolicys();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

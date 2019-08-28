@@ -22,4 +22,12 @@ constructor(private http: HttpClient) { }
   public postPolicy(policy: Policy) {
     return this.http.post(this.url, policy);
   }
+
+  public putPolicy(policy: Policy) {
+    return this.http.put(this.url, policy);
+  }
+
+  public deletePolicy(policy: Policy) {
+    return this.http.delete(this.url + '/' + policy.id);
+  }
 }
