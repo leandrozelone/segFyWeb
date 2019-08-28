@@ -1,0 +1,78 @@
+<div>
+  <button class="btn btn-outline-primary" (click)="novo(template)">
+    Novo
+  </button>
+</div>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Número da apólice</th>
+      <th>CPF/CNPJ do segurado</th>
+      <th>Placa do veículo</th>
+      <th>Valor do prêmio</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of policys">
+      <td>{{item.id}}</td>
+      <td>{{item.policyId}}</td>
+      <td>{{item.document}}</td>
+      <td>{{item.board | uppercase}}</td>
+      <td>{{item.price | currency}}</td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-success" tooltip="Editar" (click)="editar(item, template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-danger" tooltip="Excluir">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="model-title pull-left">Modal</h4>
+    <button type="button" (click)="modalRef.hide()">
+      <span arial-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="registerForm">
+          <input type="text" class="form-control" formControlName="id" [hidden]="true">
+        <div class="form-row">
+          <div class="for-goup col-md-6">
+            <label>policyId</label>
+            <input type="text" class="form-control" formControlName="policyId"
+            [ngClass]="{'is-invalid': registerForm.get('policyId').errors &&  registerForm.get('policyId').touched}">
+          </div>
+          <div class="for-goup col-md-6">
+            <label>document</label>
+            <input type="text" class="form-control" formControlName="document"
+            [ngClass]="{'is-invalid': registerForm.get('document').errors &&  registerForm.get('document').touched}">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="for-goup col-md-6">
+            <label>board</label>
+            <input type="text" class="form-control" formControlName="board"
+            [ngClass]="{'is-invalid': registerForm.get('board').errors &&  registerForm.get('policyId').board}">
+          </div>
+          <div class="for-goup col-md-6">
+            <label>price</label>
+            <input type="text" class="form-control" formControlName="price"
+            [ngClass]="{'is-invalid': registerForm.get('price').errors &&  registerForm.get('price').touched}">
+          </div>
+        </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" [disabled]="!registerForm.valid" (click)="SalvarAlteracoes(template)">Salvar</button>
+  </div>
+</ng-template>
