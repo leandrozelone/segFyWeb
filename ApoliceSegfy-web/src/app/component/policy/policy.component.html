@@ -49,13 +49,13 @@
           <input type="text" class="form-control" formControlName="id" [hidden]="true">
         <div class="form-row">
           <div class="for-goup col-md-6">
-            <label>policyId {{this.policy.policyId}}</label>
+            <label>policyId</label>
             <input type="number" class="form-control" formControlName="policyId" value="this.policy.policyId"
             [ngClass]="{'is-invalid': registerForm.get('policyId').errors &&  registerForm.get('policyId').touched}">
           </div>
           <div class="for-goup col-md-6">
             <label>document</label>
-            <input type="text" class="form-control" formControlName="document" minlength="11" maxlength="14" value="this.policy.document"
+            <input type="text" class="form-control" formControlName="document" minlength="11" maxlength="14"
             [ngClass]="{'is-invalid': registerForm.get('document').errors &&  registerForm.get('document').touched}">
           </div>
         </div>
@@ -63,7 +63,7 @@
           <div class="for-goup col-md-6">
             <label>board</label>
             <input type="text" class="form-control" formControlName="board"
-            [ngClass]="{'is-invalid': registerForm.get('board').errors &&  registerForm.get('policyId').board}">
+            [ngClass]="{'is-invalid': registerForm.get('board').errors &&  registerForm.get('board').touched}">
           </div>
           <div class="for-goup col-md-6">
             <label>price</label>

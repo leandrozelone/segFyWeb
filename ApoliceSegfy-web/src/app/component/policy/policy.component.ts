@@ -40,6 +40,11 @@ export class PolicyComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  closeModal(template: TemplateRef<any>) {
+    this.policy = null;
+    this.registerForm.reset();
+  }
+
   validation() {
     this.registerForm = new FormGroup({
       id: new FormControl('', []),
@@ -60,6 +65,7 @@ export class PolicyComponent implements OnInit {
           (newPolicy: Policy) => {
             this.policy = null;
             this.getPolicys();
+            this.closeModal(template);
           },
           error => {
             console.log(error);
@@ -71,6 +77,7 @@ export class PolicyComponent implements OnInit {
             this.policy = null;
             console.log(newPolicy);
             this.getPolicys();
+            this.closeModal(template);
           },
           error => {
             template.hide();
